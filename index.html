@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>G6 SMART restaurant</title>
+    <link rel="stylesheet" type="text/css" href="smart restaurant.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1 id="mainheading" class="text-center my-4"><b>G6 SMART restaurant</b></h1>
+
+    <div class="note text-center mb-4">
+        <p>Instant Dining at Your Fingertips — No Waiting, Just Enjoy!</p>
+    </div>
+
+    <!-- Embed PDF Section -->
+    <div class="container mt-5">
+        <h2 class="menu text-center mb-4">......Menu......</h2>
+        <div class="d-flex justify-content-center">
+            <embed src="menu_modified.pdf" type="application/pdf" width="70%" height="800px" style="border:1px solid #ccc; border-radius:8px;" />
+        </div>
+    </div>
+    <!-- order form -->
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Order</h1>
+        <form action="submit.php" method="POST">
+
+            <!-- Name Input -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Table Number</label>
+                <select id="menu" name="menu" class="form-select" required>
+                    <option value="" disabled selected hidden>Select a table</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                  </select>
+            </div>
+                <div class="mb-3">
+                  <label for="itemNumbers" class="form-label">Item Numbers:</label>
+                  <input type="text" id="itemNumbers" name="itemNumbers" class="form-control" placeholder="Enter item numbers separated by space or comma" required>
+                </div>
+              
+                <div id="quantityInputs" class="mb-3">
+                  <!-- Dynamic quantity fields will appear here -->
+                </div>
+              
+                <button type="button" class="btn btn-success" onclick="generateQuantityFields()">Enter Quantities</button>
+                
+              
+              <script>
+              function generateQuantityFields() {
+                const itemNumbersInput = document.getElementById('itemNumbers').value;
+                const itemNumbers = itemNumbersInput.split(/[\s,]+/).filter(num => num.trim() !== '');
+                const quantityInputsDiv = document.getElementById('quantityInputs');
+                
+                quantityInputsDiv.innerHTML = ''; // Clear previous inputs
+                
+                itemNumbers.forEach(itemNumber => {
+                    const div = document.createElement('div');
+                    div.classList.add('mb-3');
+                    div.innerHTML = `
+                    <label for="quantity_${itemNumber}" class="form-label">Quantity for Item ${itemNumber}:</label>
+                    <input 
+                    type="number" 
+                    id="quantity_${itemNumber}" 
+                    name="quantity_${itemNumber}" 
+                    class="form-control" 
+                    placeholder="Enter quantity for ${itemNumber}" 
+                    required 
+                    min="1">
+                    `;
+                  quantityInputsDiv.appendChild(div);
+                });
+              }
+              </script>
+              
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Submit Order</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Footer -->
+    <footer class="foot">
+        <div class="content">
+            <p class="company">G6 SMART Restaurant Pvt Ltd</p>
+            <p>123/1st street,Moratuwa.</p>
+            <p>support@G6mechatronic@gmail.com          //          0112345678</p>
+            <p>&copy; 2025 G6-SMART-RESTAURANT - All Rights Reserved.</p>    
+        </div>
+    </footer>
+</body>
+</html>
